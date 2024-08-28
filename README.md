@@ -15,7 +15,7 @@ This project is an API for managing pizza orders. Users can authenticate, place 
 - *Database Management*: SQLAlchemy
 - *Authentication*: JWT (JSON Web Tokens)
 - *API Documentation*: Swagger (automatically generated using Flask-RESTX)
-- *Testing*: Pytest
+- *Testing *: Pytest
 - *Configuration Management*: Python Decouple
 
 ## Installation
