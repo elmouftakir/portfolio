@@ -1,60 +1,31 @@
-import unittest
-from .. import create_app
-from ..config.config import config_dict
-from ..utils import db
-from werkzeug.security import generate_password_hash
-from ..models.users import User
 
-
-class UserTestCase(unittest.TestCase):
-
-    def setUp(self):
-        self.app=create_app(config=config_dict['test'])
-
-        self.appctx=self.app.app_context()
-
-        self.appctx.push()
-
-        self.client=self.app.test_client()
-
-        db.create_all()
-
-
-    def tearDown(self):
-        db.drop_all()
-
-        self.appctx.pop()
-
-        self.app=None
-
-        self.client =None
-
-
-    def test_user_registration(self):
-
-        data={
-            "username":"testuser",
-            "email":"testuser@company.com",
-            "password":"password"
+```python
+        # User signup data payload
+        "password": "password"
         }
 
-        response=self.client.post('/auth/signup',json=data)
+        # Send POST request to '/auth/signup' endpoint with signup data
+        response = self.client.post('/auth/signup', json=data)
 
-        user=User.query.filter_by(email="testuser@company.com").first()
+        # Query the database to find the user with the specified email
+        user = User.query.filter_by(email="testuser@company.com").first()
 
+        # Assert that the user was successfully created with the correct username
         assert user.username == "testuser"
 
-
+        # Assert that the signup request was successful and returned a 201 status code
         assert response.status_code == 201
 
 
     def test_login(self):
-
-        data={
-            "email":"testuser@gmail.com",
-            "password":"password"
+        # User login data payload
+        data = {
+            "email": "testuser@gmail.com",
+            "password": "password"
         }
-        response=self.client.post('/auth/login',json=data)
 
+        # Send POST request to '/auth/login' endpoint with login data
+        response = self.client.post('/auth/login', json=data)
 
+        # Assert that the login request failed and returned a 400 status code
         assert response.status_code == 400
