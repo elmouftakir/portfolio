@@ -9,7 +9,7 @@ class User(db.Model):
     password_hash=db.Column(db.Text(),nullable=False)
     is_active=db.Column(db.Boolean(),default=True)
     is_staff=db.Column(db.Boolean(),default=False)
-    orders=db.relationship('Order',backref='customer',lazy=True)
+    orders=db.relationship('Order',backref='User',lazy=True)
 
     def __repr__(self):
         f"<User {self.id} {self.username}>"
