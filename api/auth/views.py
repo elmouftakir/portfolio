@@ -8,15 +8,15 @@ from flask_jwt_extended import (create_access_token,
 create_refresh_token,jwt_required,get_jwt_identity)
 from werkzeug.exceptions import Conflict,BadRequest
 
-auth_namespace=Namespace('auth',description="a namespace for authentication")
+auth_namespace=Namespace('auth',description="namespace for authentication")
 
 
 signup_model=auth_namespace.model(
     'SignUp',{
         'id':fields.Integer(),
-        'username':fields.String(required=True,description="A username"),
-        'email':fields.String(required=True,description="An email"),
-        'password':fields.String(required=True,description="A password"),
+        'username':fields.String(required=True,description="username"),
+        'email':fields.String(required=True,description="email"),
+        'password':fields.String(required=True,description="password"),
     }
 )
 
@@ -24,11 +24,11 @@ signup_model=auth_namespace.model(
 user_model=auth_namespace.model(
     'User',{
         'id':fields.Integer(),
-        'username':fields.String(required=True,description="A username"),
-        'email':fields.String(required=True,description="An email"),
-        'password_hash':fields.String(required=True,description="A password"),
-        'is_active':fields.Boolean(description="This shows that User is active"),
-        'is_staff':fields.Boolean(description="This shows of use is staff")
+        'username':fields.String(required=True,description="username"),
+        'email':fields.String(required=True,description="email"),
+        'password_hash':fields.String(required=True,description="password"),
+        'is_active':fields.Boolean(description="shows that User is active"),
+        'is_staff':fields.Boolean(description="shows of use is staff")
     }
 
 )
