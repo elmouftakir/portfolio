@@ -1,9 +1,8 @@
 from ..utils import db
 from enum import Enum
-from datetime import datetime
 
 
-class Sizes(Enum):
+class Size(Enum):
     SMALL='small'
     MEDIUM='medium'
     LARGE='large'
@@ -18,21 +17,28 @@ class OrderStatus(Enum):
 
 class Order(db.Model):
     __tablename__='orders'
+
     id=db.Column(db.Integer(),primary_key=True)
-    size=db.Column(db.Enum(Sizes),default=Sizes.SMALL)
+    size=db.Column(db.Enum(Size),default=Size.SMALL)
     order_status=db.Column(db.Enum(OrderStatus) ,default=OrderStatus.PENDING)
     flavour=db.Column(db.String(),nullable=False)
-    date_created=db.Column(db.DateTime(),default=datetime.utcnow)
     quantity=db.Column(db.Integer())
-    user=db.Column(db.Integer(),db.ForeignKey('users.id'))
+    customer=db.Column(db.Integer(),db.ForeignKey('users.id'))
 
-    def __repr__(self):
+    def __str__(self):
         return f"<Order {self.id}>"
-    
-        def save(self):
-            db.session.add(self)
-            db.session.commit()
+
+
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
+
 
     @classmethod
     def get_by_id(cls,id):
         return cls.query.get_or_404(id)
+
+
+    def delete(self):
+        db.session.delete(self)
+        db.session.commit()
