@@ -17,7 +17,10 @@ def create_app(config=config_dict['dev']):
     
     app.config.from_object(config)
     
-    api=Api(app)
+    api=Api(app,
+        title="Ordering Pizza API",
+        description="A REST API for a Pizza Ordering And Delievry service",
+    )
     
     db.init_app(app)
     
