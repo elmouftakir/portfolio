@@ -1,4 +1,4 @@
-# Pizza Order Management API
+# Pizza delivering api
 
 ## Description
 This project is an API for managing pizza orders. Users can authenticate, place orders, view order status, and manage their accounts. The API is built using Flask and Flask-RESTX and includes authentication using JWT.
